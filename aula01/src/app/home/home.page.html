@@ -1,0 +1,48 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Aula 01
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-list>
+    <ion-item>
+      <ion-input 
+      [(ngModel)]="nome"
+      label="Nome" 
+      labelPlacement="floating" 
+      placeholder="Enter text" />
+    </ion-item>
+
+    <ion-item>
+      <ion-input 
+      [(ngModel)]="telefone"
+      label="Telefone" 
+      type="tel" 
+      labelPlacement="floating" 
+      placeholder="Enter text" />
+    </ion-item>
+
+    <ion-item>
+      <ion-input 
+      [(ngModel)]="senha"
+      label="Senha" 
+      type="password" 
+      labelPlacement="floating" 
+      placeholder="Enter text" />
+    </ion-item>
+
+    <ion-item>
+      <ion-input 
+      [(ngModel)]="email"
+      label="E-mail" 
+      type="email" 
+      labelPlacement="floating" 
+      placeholder="Enter text" />
+    </ion-item>
+  </ion-list>
+
+  <ion-button (click)="salvarPessoa()" expand="block" fill="outline">CLICK-ME</ion-button>
+</ion-content>

@@ -1,0 +1,8 @@
+{
+  "name": "aula01",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone",
+  "defaultBrowser": "firefox"
+}

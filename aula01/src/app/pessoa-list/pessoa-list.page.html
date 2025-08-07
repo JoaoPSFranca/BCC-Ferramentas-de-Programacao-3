@@ -1,0 +1,52 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Lista de Pessoas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-fab horizontal="end" vertical="bottom" slot="fixed">
+    <ion-fab-button (click)="goToHome()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-grid>
+    @if (pessoas.length == 0 && !isFilter){
+      <ion-row>
+        <ion-col>
+          Não existem pessoas cadastradas.
+        </ion-col>
+      </ion-row>      
+    } @else {
+      <ion-searchbar [debounce]="500" (ionInput)="textChange($event)" animated="true" placeholder="Pesuisa" show-clear-button="focus"></ion-searchbar>
+      @if (pessoas.length != 0) {
+        <ion-row>
+          <ion-col><strong>Nome</strong></ion-col>
+          <ion-col><strong>Telefone</strong></ion-col>
+          <ion-col><strong>E-mail</strong></ion-col>
+        </ion-row>
+        
+        @for (pessoa of pessoas; track pessoa.nome) {
+          <ion-row>
+            <ion-col>{{ pessoa.nome }}</ion-col>
+            <ion-col>{{ pessoa.telefone }}</ion-col>
+            <ion-col>{{ pessoa.email }}</ion-col>
+          </ion-row>
+        } 
+      } @else {
+        <ion-row>
+          <ion-col>
+            Não existem pessoas cadastradas com esse nome.
+          </ion-col>
+        </ion-row>
+      }
+    }
+
+    <!-- <ion-row *ngFor="let pessoa of pessoas; let i = index">
+      <ion-col>{{ pessoa.nome }}</ion-col>
+      <ion-col>{{ pessoa.telefone }}</ion-col>
+      <ion-col>{{ pessoa.email }}</ion-col>
+    </ion-row> -->
+  </ion-grid>
+</ion-content>

@@ -1,0 +1,7 @@
+{
+  "name": "ExercicioAPI",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}

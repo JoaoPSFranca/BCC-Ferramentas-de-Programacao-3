@@ -1,0 +1,25 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Products
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <p>{{ this.media }}</p>
+
+  @for (product of products; track product.id) {
+    <ion-card>
+      <img src="{{ product.thumbnail }}" />
+      <ion-card-header>
+        <ion-card-title>{{ product.title }}</ion-card-title>
+        <ion-card-subtitle>{{ product.price | currency: 'BRL': 'symbol' : '1.2-2'}}</ion-card-subtitle>
+      </ion-card-header>
+
+      <ion-card-content>
+        {{ this.gambiarra(product.description, product.price) }}
+      </ion-card-content>
+    </ion-card>
+  }
+</ion-content>

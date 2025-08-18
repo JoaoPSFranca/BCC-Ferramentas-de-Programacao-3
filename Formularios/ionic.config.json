@@ -1,0 +1,7 @@
+{
+  "name": "Formularios",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}

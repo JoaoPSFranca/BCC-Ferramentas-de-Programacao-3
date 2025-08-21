@@ -1,0 +1,33 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Componentes
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-button shape="round" (click)="enviar()">Toast</ion-button>
+  <ion-button id="present-alert" shape="round">Alert</ion-button>
+  <ion-alert
+    trigger="present-alert"
+    header="Alert!"
+    [buttons]="alertButtons"
+    (didDismiss)="setResult($event)"
+  ></ion-alert>
+
+  <ion-list>
+    <ion-item>
+      <ion-checkbox labelPlacement="end">Opcao 1</ion-checkbox>
+    </ion-item>
+     <ion-item>
+      <ion-checkbox labelPlacement="end">Opcao 2</ion-checkbox>
+    </ion-item>
+     <ion-item>
+      <ion-checkbox labelPlacement="end">Opcao 3</ion-checkbox>
+    </ion-item>
+     <ion-item>
+      <ion-checkbox labelPlacement="end">Opcao 4</ion-checkbox>
+    </ion-item>
+</ion-list>
+</ion-content>

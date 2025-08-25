@@ -1,0 +1,56 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+      <ion-title>Pesquisa Produtos</ion-title>
+      <!-- <ion-searchbar 
+      placeholder="Pesquisa Produtos" 
+      [debounce]="1000" 
+      (ionInput)=""
+      /> -->
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-list>
+    <ion-item>
+      <ion-select 
+      label="Categoria" 
+      placeholder="Selecione" 
+      (ionChange)="catChange($event)">
+
+        @for(item of categorias; track item.id) {
+          <ion-select-option [value]="item.id">{{ item.nome }}</ion-select-option>
+        }
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-grid>
+        <ion-row>
+          <ion-col><strong>Nome</strong></ion-col>
+          <ion-col><strong>Qtd.</strong></ion-col>
+          <ion-col><strong>Preço</strong></ion-col>
+          <ion-col><strong>Valor em estoque</strong></ion-col>
+        </ion-row>
+
+        @for (prod of produtos; track prod.id) {
+        <ion-row>
+          <ion-col>{{ prod.nome }}</ion-col>
+          <ion-col>{{ prod.quantidade_em_estoque }}</ion-col>
+          <ion-col>{{ prod.preco | currency: 'BRL': 'R$ ' : '1.2-2' }}</ion-col> <!-- ele simplesmente não aceita o "pt-BR", nem nada além de en-US, coringuei-->
+          <ion-col>{{ (prod.preco * prod.quantidade_em_estoque) | currency: 'BRL': 'R$ ' : '1.2-2' }}</ion-col>
+        </ion-row>
+        }
+      </ion-grid>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+@if (produtos.length != 0) {
+  <ion-footer>
+    <ion-toolbar>
+      <br/>
+      <ion-title><b>Produto mais caro:</b> {{ this.maisCaro.nome }} </ion-title> 
+      <ion-title><b>Produto menor qtd.:</b> {{ this.menorQtd.nome }} </ion-title>
+      <br/>
+    </ion-toolbar>
+  </ion-footer>
+}

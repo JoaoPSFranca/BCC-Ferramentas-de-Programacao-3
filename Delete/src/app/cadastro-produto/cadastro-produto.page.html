@@ -1,0 +1,38 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title> Cadastrar Produtos </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <form [formGroup]="forms">
+    <ion-item>
+      <ion-select
+        label="Categoria"
+        placeholder="Selecione"
+        formControlName="categoria"
+      >
+        @for(categoria of categorias; track categoria.id) {
+        <ion-select-option [value]="categoria"
+          >{{ categoria.nome }}</ion-select-option
+        >
+        }
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-input label="Nome" label-placement="floating" placeholder="Enter text" formControlName="nome"> </ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input label="Preço" type="number" label-placement="floating" placeholder="Enter text" formControlName="preco"> </ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input label="Quantidade" label-placement="floating" placeholder="Enter text" formControlName="quantidade"> </ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-button expand="block" (click)="enviar()"> Send </ion-button>
+    </ion-item>
+    
+  </form>
+</ion-content>

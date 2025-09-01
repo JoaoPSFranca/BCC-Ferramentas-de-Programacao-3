@@ -1,0 +1,1026 @@
+{
+  "produtos": [
+    {
+      "id": 1,
+      "nome": "Smartphone XYZ",
+      "quantidade_em_estoque": 150,
+      "preco": 1200.5,
+      "categoria": {
+        "id": 1,
+        "nome": "Eletrônicos"
+      }
+    },
+    {
+      "id": 2,
+      "nome": "Smart TV 4K",
+      "quantidade_em_estoque": 75,
+      "preco": 2500.0,
+      "categoria": {
+        "id": 1,
+        "nome": "Eletrônicos"
+      }
+    },
+    {
+      "id": 3,
+      "nome": "Fone de Ouvido Bluetooth",
+      "quantidade_em_estoque": 300,
+      "preco": 150.99,
+      "categoria": {
+        "id": 1,
+        "nome": "Eletrônicos"
+      }
+    },
+    {
+      "id": 4,
+      "nome": "Livro de Ficção Científica",
+      "quantidade_em_estoque": 500,
+      "preco": 35.75,
+      "categoria": {
+        "id": 2,
+        "nome": "Livros"
+      }
+    },
+    {
+      "id": 5,
+      "nome": "Livro de Culinária",
+      "quantidade_em_estoque": 200,
+      "preco": 55.0,
+      "categoria": {
+        "id": 2,
+        "nome": "Livros"
+      }
+    },
+    {
+      "id": 6,
+      "nome": "Cadeira de Escritório Ergonômica",
+      "quantidade_em_estoque": 50,
+      "preco": 450.0,
+      "categoria": {
+        "id": 3,
+        "nome": "Móveis"
+      }
+    },
+    {
+      "id": 7,
+      "nome": "Sofá Retrátil",
+      "quantidade_em_estoque": 25,
+      "preco": 1800.0,
+      "categoria": {
+        "id": 3,
+        "nome": "Móveis"
+      }
+    },
+    {
+      "id": 8,
+      "nome": "Camiseta de Algodão",
+      "quantidade_em_estoque": 1000,
+      "preco": 45.9,
+      "categoria": {
+        "id": 4,
+        "nome": "Vestuário"
+      }
+    },
+    {
+      "id": 9,
+      "nome": "Calça Jeans Skinny",
+      "quantidade_em_estoque": 450,
+      "preco": 99.9,
+      "categoria": {
+        "id": 4,
+        "nome": "Vestuário"
+      }
+    },
+    {
+      "id": 10,
+      "nome": "Tênis Esportivo",
+      "quantidade_em_estoque": 250,
+      "preco": 180.0,
+      "categoria": {
+        "id": 4,
+        "nome": "Vestuário"
+      }
+    },
+    {
+      "id": 11,
+      "nome": "Geladeira Frost Free",
+      "quantidade_em_estoque": 60,
+      "preco": 3200.0,
+      "categoria": {
+        "id": 5,
+        "nome": "Eletrodomésticos"
+      }
+    },
+    {
+      "id": 12,
+      "nome": "Micro-ondas",
+      "quantidade_em_estoque": 120,
+      "preco": 350.5,
+      "categoria": {
+        "id": 5,
+        "nome": "Eletrodomésticos"
+      }
+    },
+    {
+      "id": 13,
+      "nome": "Máquina de Lavar Roupas",
+      "quantidade_em_estoque": 40,
+      "preco": 1500.0,
+      "categoria": {
+        "id": 5,
+        "nome": "Eletrodomésticos"
+      }
+    },
+    {
+      "id": 14,
+      "nome": "Notebook Gamer",
+      "quantidade_em_estoque": 80,
+      "preco": 5500.0,
+      "categoria": {
+        "id": 1,
+        "nome": "Eletrônicos"
+      }
+    },
+    {
+      "id": 15,
+      "nome": "Caixa de Som Portátil",
+      "quantidade_em_estoque": 250,
+      "preco": 220.0,
+      "categoria": {
+        "id": 1,
+        "nome": "Eletrônicos"
+      }
+    },
+    {
+      "id": 16,
+      "nome": "Livro de Romance",
+      "quantidade_em_estoque": 400,
+      "preco": 49.9,
+      "categoria": {
+        "id": 2,
+        "nome": "Livros"
+      }
+    },
+    {
+      "id": 17,
+      "nome": "Mesa de Jantar de Madeira",
+      "quantidade_em_estoque": 30,
+      "preco": 900.0,
+      "categoria": {
+        "id": 3,
+        "nome": "Móveis"
+      }
+    },
+    {
+      "id": 18,
+      "nome": "Vestido de Festa",
+      "quantidade_em_estoque": 150,
+      "preco": 250.0,
+      "categoria": {
+        "id": 4,
+        "nome": "Vestuário"
+      }
+    },
+    {
+      "id": 19,
+      "nome": "Forno Elétrico",
+      "quantidade_em_estoque": 90,
+      "preco": 850.0,
+      "categoria": {
+        "id": 5,
+        "nome": "Eletrodomésticos"
+      }
+    },
+    {
+      "id": 20,
+      "nome": "Câmera Digital",
+      "quantidade_em_estoque": 100,
+      "preco": 750.0,
+      "categoria": {
+        "id": 1,
+        "nome": "Eletrônicos"
+      }
+    },
+    {
+      "id": 21,
+      "nome": "Livro de Biografia",
+      "quantidade_em_estoque": 180,
+      "preco": 60.5,
+      "categoria": {
+        "id": 2,
+        "nome": "Livros"
+      }
+    },
+    {
+      "id": 22,
+      "nome": "Guarda-roupa de Casal",
+      "quantidade_em_estoque": 20,
+      "preco": 1200.0,
+      "categoria": {
+        "id": 3,
+        "nome": "Móveis"
+      }
+    },
+    {
+      "id": 23,
+      "nome": "Jaqueta de Couro",
+      "quantidade_em_estoque": 80,
+      "preco": 350.0,
+      "categoria": {
+        "id": 4,
+        "nome": "Vestuário"
+      }
+    },
+    {
+      "id": 24,
+      "nome": "Aspirador de Pó Robô",
+      "quantidade_em_estoque": 110,
+      "preco": 950.0,
+      "categoria": {
+        "id": 5,
+        "nome": "Eletrodomésticos"
+      }
+    },
+    {
+      "id": 25,
+      "nome": "Monitor Ultrawide",
+      "quantidade_em_estoque": 95,
+      "preco": 1800.0,
+      "categoria": {
+        "id": 1,
+        "nome": "Eletrônicos"
+      }
+    },
+    {
+      "id": 26,
+      "nome": "Livro Infantil Ilustrado",
+      "quantidade_em_estoque": 600,
+      "preco": 29.9,
+      "categoria": {
+        "id": 2,
+        "nome": "Livros"
+      }
+    },
+    {
+      "id": 27,
+      "nome": "Cômoda com 4 Gavetas",
+      "quantidade_em_estoque": 70,
+      "preco": 380.0,
+      "categoria": {
+        "id": 3,
+        "nome": "Móveis"
+      }
+    },
+    {
+      "id": 28,
+      "nome": "Moletom com Capuz",
+      "quantidade_em_estoque": 600,
+      "preco": 85.0,
+      "categoria": {
+        "id": 4,
+        "nome": "Vestuário"
+      }
+    },
+    {
+      "id": 29,
+      "nome": "Batedeira Planetária",
+      "quantidade_em_estoque": 150,
+      "preco": 280.0,
+      "categoria": {
+        "id": 5,
+        "nome": "Eletrodomésticos"
+      }
+    },
+    {
+      "id": 30,
+      "nome": "Tablet Android",
+      "quantidade_em_estoque": 130,
+      "preco": 650.0,
+      "categoria": {
+        "id": 1,
+        "nome": "Eletrônicos"
+      }
+    },
+    {
+      "id": 31,
+      "nome": "Livro de Autoajuda",
+      "quantidade_em_estoque": 250,
+      "preco": 42.0,
+      "categoria": {
+        "id": 2,
+        "nome": "Livros"
+      }
+    },
+    {
+      "id": 32,
+      "nome": "Escrivaninha Compacta",
+      "quantidade_em_estoque": 90,
+      "preco": 290.0,
+      "categoria": {
+        "id": 3,
+        "nome": "Móveis"
+      }
+    },
+    {
+      "id": 33,
+      "nome": "Bermuda de Sarja",
+      "quantidade_em_estoque": 700,
+      "preco": 65.0,
+      "categoria": {
+        "id": 4,
+        "nome": "Vestuário"
+      }
+    },
+    {
+      "id": 34,
+      "nome": "Panela de Pressão Elétrica",
+      "quantidade_em_estoque": 180,
+      "preco": 190.0,
+      "categoria": {
+        "id": 5,
+        "nome": "Eletrodomésticos"
+      }
+    },
+    {
+      "id": 35,
+      "nome": "Impressora Multifuncional",
+      "quantidade_em_estoque": 110,
+      "preco": 450.0,
+      "categoria": {
+        "id": 1,
+        "nome": "Eletrônicos"
+      }
+    },
+    {
+      "id": 36,
+      "nome": "Livro de Poesia",
+      "quantidade_em_estoque": 350,
+      "preco": 38.0,
+      "categoria": {
+        "id": 2,
+        "nome": "Livros"
+      }
+    },
+    {
+      "id": 37,
+      "nome": "Estante para Livros",
+      "quantidade_em_estoque": 60,
+      "preco": 250.0,
+      "categoria": {
+        "id": 3,
+        "nome": "Móveis"
+      }
+    },
+    {
+      "id": 38,
+      "nome": "Blusa de Lã",
+      "quantidade_em_estoque": 400,
+      "preco": 120.0,
+      "categoria": {
+        "id": 4,
+        "nome": "Vestuário"
+      }
+    },
+    {
+      "id": 39,
+      "nome": "Liquidificador de Alta Potência",
+      "quantidade_em_estoque": 220,
+      "preco": 130.0,
+      "categoria": {
+        "id": 5,
+        "nome": "Eletrodomésticos"
+      }
+    },
+    {
+      "id": 40,
+      "nome": "Relógio Inteligente",
+      "quantidade_em_estoque": 200,
+      "preco": 400.0,
+      "categoria": {
+        "id": 1,
+        "nome": "Eletrônicos"
+      }
+    },
+    {
+      "id": 41,
+      "nome": "Livro de Suspense",
+      "quantidade_em_estoque": 320,
+      "preco": 45.0,
+      "categoria": {
+        "id": 2,
+        "nome": "Livros"
+      }
+    },
+    {
+      "id": 42,
+      "nome": "Armário de Cozinha",
+      "quantidade_em_estoque": 28,
+      "preco": 750.0,
+      "categoria": {
+        "id": 3,
+        "nome": "Móveis"
+      }
+    },
+    {
+      "id": 43,
+      "nome": "Regata Esportiva",
+      "quantidade_em_estoque": 850,
+      "preco": 55.0,
+      "categoria": {
+        "id": 4,
+        "nome": "Vestuário"
+      }
+    },
+    {
+      "id": 44,
+      "nome": "Torradeira Elétrica",
+      "quantidade_em_estoque": 350,
+      "preco": 85.0,
+      "categoria": {
+        "id": 5,
+        "nome": "Eletrodomésticos"
+      }
+    },
+    {
+      "id": 45,
+      "nome": "Carregador Portátil",
+      "quantidade_em_estoque": 400,
+      "preco": 70.0,
+      "categoria": {
+        "id": 1,
+        "nome": "Eletrônicos"
+      }
+    },
+    {
+      "id": 46,
+      "nome": "Livro de História",
+      "quantidade_em_estoque": 280,
+      "preco": 65.0,
+      "categoria": {
+        "id": 2,
+        "nome": "Livros"
+      }
+    },
+    {
+      "id": 47,
+      "nome": "Poltrona de Leitura",
+      "quantidade_em_estoque": 40,
+      "preco": 550.0,
+      "categoria": {
+        "id": 3,
+        "nome": "Móveis"
+      }
+    },
+    {
+      "id": 48,
+      "nome": "Saia Midi",
+      "quantidade_em_estoque": 200,
+      "preco": 75.0,
+      "categoria": {
+        "id": 4,
+        "nome": "Vestuário"
+      }
+    },
+    {
+      "id": 49,
+      "nome": "Chaleira Elétrica",
+      "quantidade_em_estoque": 280,
+      "preco": 110.0,
+      "categoria": {
+        "id": 5,
+        "nome": "Eletrodomésticos"
+      }
+    },
+    {
+      "id": 50,
+      "nome": "Console de Videogame",
+      "quantidade_em_estoque": 50,
+      "preco": 3000.0,
+      "categoria": {
+        "id": 1,
+        "nome": "Eletrônicos"
+      }
+    },
+    {
+      "id": 51,
+      "nome": "Livro de Fantasia",
+      "quantidade_em_estoque": 420,
+      "preco": 50.0,
+      "categoria": {
+        "id": 2,
+        "nome": "Livros"
+      }
+    },
+    {
+      "id": 52,
+      "nome": "Rack para TV",
+      "quantidade_em_estoque": 70,
+      "preco": 480.0,
+      "categoria": {
+        "id": 3,
+        "nome": "Móveis"
+      }
+    },
+    {
+      "id": 53,
+      "nome": "Blazer Feminino",
+      "quantidade_em_estoque": 120,
+      "preco": 200.0,
+      "categoria": {
+        "id": 4,
+        "nome": "Vestuário"
+      }
+    },
+    {
+      "id": 54,
+      "nome": "Sanduicheira",
+      "quantidade_em_estoque": 300,
+      "preco": 60.0,
+      "categoria": {
+        "id": 5,
+        "nome": "Eletrodomésticos"
+      }
+    },
+    {
+      "id": 55,
+      "nome": "Drone com Câmera",
+      "quantidade_em_estoque": 35,
+      "preco": 1500.0,
+      "categoria": {
+        "id": 1,
+        "nome": "Eletrônicos"
+      }
+    },
+    {
+      "id": 56,
+      "nome": "Livro de Economia",
+      "quantidade_em_estoque": 150,
+      "preco": 70.0,
+      "categoria": {
+        "id": 2,
+        "nome": "Livros"
+      }
+    },
+    {
+      "id": 57,
+      "nome": "Cama Box Casal",
+      "quantidade_em_estoque": 50,
+      "preco": 950.0,
+      "categoria": {
+        "id": 3,
+        "nome": "Móveis"
+      }
+    },
+    {
+      "id": 58,
+      "nome": "Jaqueta Corta-Vento",
+      "quantidade_em_estoque": 220,
+      "preco": 140.0,
+      "categoria": {
+        "id": 4,
+        "nome": "Vestuário"
+      }
+    },
+    {
+      "id": 59,
+      "nome": "Grill Elétrico",
+      "quantidade_em_estoque": 180,
+      "preco": 120.0,
+      "categoria": {
+        "id": 5,
+        "nome": "Eletrodomésticos"
+      }
+    },
+    {
+      "id": 60,
+      "nome": "Mouse sem Fio",
+      "quantidade_em_estoque": 500,
+      "preco": 65.0,
+      "categoria": {
+        "id": 1,
+        "nome": "Eletrônicos"
+      }
+    },
+    {
+      "id": 61,
+      "nome": "Livro de Contos",
+      "quantidade_em_estoque": 300,
+      "preco": 40.0,
+      "categoria": {
+        "id": 2,
+        "nome": "Livros"
+      }
+    },
+    {
+      "id": 62,
+      "nome": "Mesa de Centro",
+      "quantidade_em_estoque": 85,
+      "preco": 220.0,
+      "categoria": {
+        "id": 3,
+        "nome": "Móveis"
+      }
+    },
+    {
+      "id": 63,
+      "nome": "Short Jeans",
+      "quantidade_em_estoque": 550,
+      "preco": 80.0,
+      "categoria": {
+        "id": 4,
+        "nome": "Vestuário"
+      }
+    },
+    {
+      "id": 64,
+      "nome": "Cafeteira Expresso",
+      "quantidade_em_estoque": 140,
+      "preco": 250.0,
+      "categoria": {
+        "id": 5,
+        "nome": "Eletrodomésticos"
+      }
+    },
+    {
+      "id": 65,
+      "nome": "Teclado Mecânico",
+      "quantidade_em_estoque": 170,
+      "preco": 300.0,
+      "categoria": {
+        "id": 1,
+        "nome": "Eletrônicos"
+      }
+    },
+    {
+      "id": 66,
+      "nome": "Livro de Autoajuda 2",
+      "quantidade_em_estoque": 280,
+      "preco": 55.0,
+      "categoria": {
+        "id": 2,
+        "nome": "Livros"
+      }
+    },
+    {
+      "id": 67,
+      "nome": "Prateleira de Parede",
+      "quantidade_em_estoque": 120,
+      "preco": 150.0,
+      "categoria": {
+        "id": 3,
+        "nome": "Móveis"
+      }
+    },
+    {
+      "id": 68,
+      "nome": "Sapato Social Masculino",
+      "quantidade_em_estoque": 90,
+      "preco": 180.0,
+      "categoria": {
+        "id": 4,
+        "nome": "Vestuário"
+      }
+    },
+    {
+      "id": 69,
+      "nome": "Processador de Alimentos",
+      "quantidade_em_estoque": 110,
+      "preco": 250.0,
+      "categoria": {
+        "id": 5,
+        "nome": "Eletrodomésticos"
+      }
+    },
+    {
+      "id": 70,
+      "nome": "Webcam Full HD",
+      "quantidade_em_estoque": 210,
+      "preco": 190.0,
+      "categoria": {
+        "id": 1,
+        "nome": "Eletrônicos"
+      }
+    },
+    {
+      "id": 71,
+      "nome": "Livro de Arte",
+      "quantidade_em_estoque": 100,
+      "preco": 85.0,
+      "categoria": {
+        "id": 2,
+        "nome": "Livros"
+      }
+    },
+    {
+      "id": 72,
+      "nome": "Mesa de Centro de Vidro",
+      "quantidade_em_estoque": 45,
+      "preco": 320.0,
+      "categoria": {
+        "id": 3,
+        "nome": "Móveis"
+      }
+    },
+    {
+      "id": 73,
+      "nome": "Macacão Feminino",
+      "quantidade_em_estoque": 180,
+      "preco": 160.0,
+      "categoria": {
+        "id": 4,
+        "nome": "Vestuário"
+      }
+    },
+    {
+      "id": 74,
+      "nome": "Air Fryer",
+      "quantidade_em_estoque": 200,
+      "preco": 400.0,
+      "categoria": {
+        "id": 5,
+        "nome": "Eletrodomésticos"
+      }
+    },
+    {
+      "id": 75,
+      "nome": "Chromecast",
+      "quantidade_em_estoque": 250,
+      "preco": 280.0,
+      "categoria": {
+        "id": 1,
+        "nome": "Eletrônicos"
+      }
+    },
+    {
+      "id": 76,
+      "nome": "Livro de Marketing Digital",
+      "quantidade_em_estoque": 160,
+      "preco": 75.0,
+      "categoria": {
+        "id": 2,
+        "nome": "Livros"
+      }
+    },
+    {
+      "id": 77,
+      "nome": "Puff Quadrado",
+      "quantidade_em_estoque": 150,
+      "preco": 120.0,
+      "categoria": {
+        "id": 3,
+        "nome": "Móveis"
+      }
+    },
+    {
+      "id": 78,
+      "nome": "Bolsa de Couro",
+      "quantidade_em_estoque": 100,
+      "preco": 220.0,
+      "categoria": {
+        "id": 4,
+        "nome": "Vestuário"
+      }
+    },
+    {
+      "id": 79,
+      "nome": "Fritadeira Elétrica",
+      "quantidade_em_estoque": 210,
+      "preco": 150.0,
+      "categoria": {
+        "id": 5,
+        "nome": "Eletrodomésticos"
+      }
+    },
+    {
+      "id": 80,
+      "nome": "Cabo HDMI",
+      "quantidade_em_estoque": 900,
+      "preco": 25.0,
+      "categoria": {
+        "id": 1,
+        "nome": "Eletrônicos"
+      }
+    },
+    {
+      "id": 81,
+      "nome": "Livro de Receitas",
+      "quantidade_em_estoque": 350,
+      "preco": 45.0,
+      "categoria": {
+        "id": 2,
+        "nome": "Livros"
+      }
+    },
+    {
+      "id": 82,
+      "nome": "Kit de Banheiro de Cerâmica",
+      "quantidade_em_estoque": 280,
+      "preco": 70.0,
+      "categoria": {
+        "id": 3,
+        "nome": "Móveis"
+      }
+    },
+    {
+      "id": 83,
+      "nome": "Relógio de Pulso",
+      "quantidade_em_estoque": 130,
+      "preco": 300.0,
+      "categoria": {
+        "id": 4,
+        "nome": "Vestuário"
+      }
+    },
+    {
+      "id": 84,
+      "nome": "Máquina de Café Espresso",
+      "quantidade_em_estoque": 80,
+      "preco": 450.0,
+      "categoria": {
+        "id": 5,
+        "nome": "Eletrodomésticos"
+      }
+    },
+    {
+      "id": 85,
+      "nome": "Microfone Condensador",
+      "quantidade_em_estoque": 110,
+      "preco": 350.0,
+      "categoria": {
+        "id": 1,
+        "nome": "Eletrônicos"
+      }
+    },
+    {
+      "id": 86,
+      "nome": "Livro de Economia 2",
+      "quantidade_em_estoque": 190,
+      "preco": 80.0,
+      "categoria": {
+        "id": 2,
+        "nome": "Livros"
+      }
+    },
+    {
+      "id": 87,
+      "nome": "Armário de Quarto",
+      "quantidade_em_estoque": 30,
+      "preco": 850.0,
+      "categoria": {
+        "id": 3,
+        "nome": "Móveis"
+      }
+    },
+    {
+      "id": 88,
+      "nome": "Vestido Floral",
+      "quantidade_em_estoque": 250,
+      "preco": 110.0,
+      "categoria": {
+        "id": 4,
+        "nome": "Vestuário"
+      }
+    },
+    {
+      "id": 89,
+      "nome": "Ventilador de Teto",
+      "quantidade_em_estoque": 90,
+      "preco": 220.0,
+      "categoria": {
+        "id": 5,
+        "nome": "Eletrodomésticos"
+      }
+    },
+    {
+      "id": 90,
+      "nome": "Headset Gamer",
+      "quantidade_em_estoque": 180,
+      "preco": 290.0,
+      "categoria": {
+        "id": 1,
+        "nome": "Eletrônicos"
+      }
+    },
+    {
+      "id": 91,
+      "nome": "Livro de Poesia 2",
+      "quantidade_em_estoque": 300,
+      "preco": 40.0,
+      "categoria": {
+        "id": 2,
+        "nome": "Livros"
+      }
+    },
+    {
+      "id": 92,
+      "nome": "Mesa de Canto",
+      "quantidade_em_estoque": 100,
+      "preco": 150.0,
+      "categoria": {
+        "id": 3,
+        "nome": "Móveis"
+      }
+    },
+    {
+      "id": 93,
+      "nome": "Pijama de Inverno",
+      "quantidade_em_estoque": 450,
+      "preco": 95.0,
+      "categoria": {
+        "id": 4,
+        "nome": "Vestuário"
+      }
+    },
+    {
+      "id": 94,
+      "nome": "Tostadeira de Pão",
+      "quantidade_em_estoque": 280,
+      "preco": 75.0,
+      "categoria": {
+        "id": 5,
+        "nome": "Eletrodomésticos"
+      }
+    },
+    {
+      "id": 95,
+      "nome": "Pendrive 64GB",
+      "quantidade_em_estoque": 600,
+      "preco": 45.0,
+      "categoria": {
+        "id": 1,
+        "nome": "Eletrônicos"
+      }
+    },
+    {
+      "id": 96,
+      "nome": "Livro de Suspense 2",
+      "quantidade_em_estoque": 250,
+      "preco": 55.0,
+      "categoria": {
+        "id": 2,
+        "nome": "Livros"
+      }
+    },
+    {
+      "id": 97,
+      "nome": "Balcão de Cozinha",
+      "quantidade_em_estoque": 40,
+      "preco": 600.0,
+      "categoria": {
+        "id": 3,
+        "nome": "Móveis"
+      }
+    },
+    {
+      "id": 98,
+      "nome": "Meia de Compressão",
+      "quantidade_em_estoque": 800,
+      "preco": 30.0,
+      "categoria": {
+        "id": 4,
+        "nome": "Vestuário"
+      }
+    },
+    {
+      "id": 99,
+      "nome": "Ferro de Passar a Vapor",
+      "quantidade_em_estoque": 180,
+      "preco": 95.0,
+      "categoria": {
+        "id": 5,
+        "nome": "Eletrodomésticos"
+      }
+    },
+    {
+      "id": 100,
+      "nome": "Caixa de Som para PC",
+      "quantidade_em_estoque": 220,
+      "preco": 120.0,
+      "categoria": {
+        "id": 1,
+        "nome": "Eletrônicos"
+      }
+    }
+  ],
+  "categorias": [
+    {
+      "id": "1",
+      "nome": "Eletrônicos"
+    },
+    {
+      "id": "2",
+      "nome": "Livros"
+    },
+    {
+      "id": "3",
+      "nome": "Móveis"
+    },
+    {
+      "id": "4",
+      "nome": "Vestuário"
+    },
+    {
+      "id": "5",
+      "nome": "Eletrodomésticos"
+    }
+  ]
+}

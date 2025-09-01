@@ -1,0 +1,59 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title> Pesquisar Produtos </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-item>
+    <ion-select
+      [(ngModel)]="idCategoria"
+      label="Categoria"
+      placeholder="Selecione"
+      (ionChange)="pesquisar()"
+    >
+      @for(categoria of categorias; track categoria.id) {
+      <ion-select-option [value]="categoria.id"
+        >{{ categoria.nome }}</ion-select-option
+      >
+      }
+    </ion-select>
+  </ion-item>
+  @if(produtosSelecionados.length > 0) {
+  <ion-grid>
+    <ion-row>
+      <ion-col size="4"><strong>Nome</strong></ion-col>
+      <ion-col size="1"><strong>Qtd.</strong></ion-col>
+      <ion-col size="2"><strong>Preço</strong></ion-col>
+      <ion-col size="3"><strong>Valor em estoque</strong></ion-col>
+      <ion-col size="2"><strong>Action</strong></ion-col>
+    </ion-row>
+    @for(produto of produtosSelecionados; track produto.id) {
+    <ion-row>
+      <ion-col size="4">{{ produto.nome }}</ion-col>
+      <ion-col size="1">{{ produto.quantidade_em_estoque}}</ion-col>
+      <ion-col size="2">{{ produto.preco | currency : 'BRL'}}</ion-col>
+      <ion-col size="3"> 
+        {{ produto.quantidade_em_estoque * produto.preco | currency : 'BRL'}}
+      </ion-col>
+      <ion-col size="2">
+        <ion-button color="danger" expand="block" (click)="remover(produto.id)">
+          <ion-icon name="trash-outline" />
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    }
+  </ion-grid>
+  }
+</ion-content>
+
+@if(produtosSelecionados.length > 0) {
+<ion-footer>
+  <ion-toolbar>
+    <ion-title>
+      <div><strong>Produto mais caro: </strong>{{ produtoMaisCaro.nome }}</div>
+      <div><strong>Produto menor qtd.: </strong>{{ produtoMenorQuantidade.nome }}</div>
+    </ion-title>
+  </ion-toolbar>
+</ion-footer>
+}

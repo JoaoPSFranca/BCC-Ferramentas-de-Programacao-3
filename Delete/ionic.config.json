@@ -1,0 +1,7 @@
+{
+  "name": "Delete",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}

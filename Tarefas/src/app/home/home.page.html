@@ -1,0 +1,57 @@
+<!-- npx json-server db.json -->
+
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title> Tarefa </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-grid>
+    <ion-row>
+      <ion-col><b>Descricao</b></ion-col>
+      <ion-col size="3" class="ion-nowrap"><b>Status</b></ion-col>
+      <ion-col size="4" style="display: flex; justify-content: center">
+        <ion-button shape="round" color="tertiary">
+          <ion-icon slot="icon-only" name="add"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+
+    @for (tarefa of tarefas; track tarefa.id) {
+    <ion-row>
+      <ion-col>{{ tarefa.descricao }}</ion-col>
+      <ion-col size="3">{{ tarefa.status }}</ion-col>
+      <ion-col size="4" style="display: flex; justify-content: center">
+        <ion-button shape="round" color="secondary">
+          <ion-icon slot="icon-only" name="create"></ion-icon>
+        </ion-button>
+
+        <ion-button
+          shape="round"
+          color="success"
+          (click)="alterStatus(tarefa, stat.Concluida)"
+        >
+          <ion-icon slot="icon-only" name="checkmark-circle-outline"></ion-icon>
+        </ion-button>
+
+        <ion-button
+          shape="round"
+          color="warning"
+          (click)="alterStatus(tarefa, stat.Cancelada)"
+        >
+          <ion-icon slot="icon-only" name="close"></ion-icon>
+        </ion-button>
+
+        <ion-button
+          shape="round"
+          color="danger"
+          (click)="removeTask(tarefa)"
+        >
+          <ion-icon slot="icon-only" name="trash"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    }
+  </ion-grid>
+</ion-content>

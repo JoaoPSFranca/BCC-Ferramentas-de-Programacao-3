@@ -1,0 +1,39 @@
+{
+  "tarefas": [
+    {
+      "id": "2",
+      "descricao": "Desenvolver uma API para o sistema de pagamentos.",
+      "status": "Cancelada"
+    },
+    {
+      "id": "3",
+      "descricao": "Revisar o design da interface de usuário para o novo aplicativo.",
+      "status": "Concluida"
+    },
+    {
+      "id": "4",
+      "descricao": "Participar da reunião do marketing do próximo trimestre.",
+      "status": "Concluida"
+    },
+    {
+      "id": "5",
+      "descricao": "Atualizar o projeto de acordo com as últimas mudanças.",
+      "status": "Cadastrada"
+    },
+    {
+      "id": "6",
+      "descricao": "Testar as novas funcionalidades da versão beta do software.",
+      "status": "Andamento"
+    },
+    {
+      "id": "8",
+      "descricao": "Planejar o lançamento do novo produto para o próximo mês.",
+      "status": "Concluida"
+    },
+    {
+      "id": "9",
+      "descricao": "Revisar o contrato com o novo fornecedor de serviços.",
+      "status": "Concluida"
+    }
+  ]
+}

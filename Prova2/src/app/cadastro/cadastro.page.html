@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button default-href="#"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Cadastrar Foto</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-list>
+    <ion-item>
+      <ion-input label="Arquivo" type="file" multiple="false" (change)="getFoto($event)"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input label="Tag" [(ngModel)]="tag"></ion-input>
+    </ion-item>
+  </ion-list>
+
+   <ion-button (click)="send()" >Enviar</ion-button>
+</ion-content>

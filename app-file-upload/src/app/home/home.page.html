@@ -1,0 +1,23 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title> Upload </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <p><strong>Tamanho máximo dos arquivos: 100KB</strong></p>
+  <label for="inputFile">Escolha os arquivos</label>
+  <input id="inputFile" type="file" multiple (change)="adicionarArquivos($event)" />
+
+  <ion-list>
+    @for (arquivo of arquivos; track $index; let index = $index) {
+    <ion-item>
+      {{ arquivo.name }}
+      <ion-note slot="end">
+        <ion-icon name="trash" (click)="confirmarExclusao(index)" />
+      </ion-note>
+    </ion-item>
+    }
+  </ion-list>
+  <ion-button (click)="enviar()">Enviar</ion-button>
+</ion-content>

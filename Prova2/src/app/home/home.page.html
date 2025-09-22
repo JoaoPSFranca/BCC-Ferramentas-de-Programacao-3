@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Fotos</ion-title>
+
+    <ion-button shape="round" slot="primary" (click)="navi()">
+      <ion-icon name="add"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-searchbar (ionInput)="pesquisar($event)"></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+<ion-list>
+  @for (foto of fotos; track foto) {
+  <ion-item>
+    <ion-card style="min-height: 300px">
+      <img [alt]="foto.tags" [src]="pegarImagem(foto.file.path)" />
+      <ion-card-header>
+        <ion-card-title>{{ foto.file.originalname }}</ion-card-title>
+        <ion-card-subtitle> {{ foto.tags }} </ion-card-subtitle>
+      </ion-card-header>
+    </ion-card>
+  </ion-item>
+  }
+</ion-list>
+
+<ion-content [fullscreen]="true"> </ion-content>

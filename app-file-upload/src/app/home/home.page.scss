@@ -1,0 +1,28 @@
+input[type="file"] {
+  display: none;
+}
+
+label {
+  display: block;
+  background-color: blue;
+  width: 100%;
+  cursor: pointer;
+  color: white;
+  text-align: center;
+  padding: 10px;
+}
+
+p {
+  font-size: 0.6rem;
+  text-align: center;
+  color: red;
+}
+
+// input::file-selector-button {
+//   padding: 10px;
+//   border-radius: 5px;
+//   background-color: blue;
+//   color: white;
+//   font-size: 1rem;
+//   border: none;
+// }

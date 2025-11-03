@@ -1,0 +1,4 @@
+para rodar: npm run start:dev
+para criar modulo: nest g mo pessoa
+para criar controller: nest g co pessoa // quando for criar o controller, gerar o modulo primeiro que ele associa um com outro pelo nome
+

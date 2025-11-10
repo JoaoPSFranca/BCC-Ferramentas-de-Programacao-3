@@ -1,41 +1,68 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable prettier/prettier */
-import { Controller, Get, Param, Query } from '@nestjs/common';
+import { PessoaService } from './pessoa.service';
+import { Controller, Get, Param, Query, Post, Body } from '@nestjs/common';
+import { Pessoa } from './pessoa.entity';
 
 @Controller('pessoa')
 export class PessoaController {
-    @Get()
-    getHello(): string {
-        return 'Pessoas';
-    }
+    constructor(private pessoaService: PessoaService){}
 
-    @Get('buscar/:id')
-    obterPorId(@Param('id') id: string): string {
-        return `This action returns a #${id} cat`;
-    }
+    private pessoas: any[] = [];
 
-    @Get('todos/descendente')
-    obterTodasOrdenadaDescendente() {
+    @Get("")
+    teste() {
         return {
-            message: 'Pessoas Ordenadas Descendente',
+        message: "Todas as Pessoas",
         };
     }
 
-    @Get('buscar')
-    buscarPeloNomeOrdenado(@Query("nome") nome: string, @Query("ordem") ordem: string){
-        if (nome && ordem)
-            return { message: `Obter pelo nome ${nome} e pela ordem ${ordem}` };
-        else if (!nome && ordem)
-            return { message: `Obter pela ordem ${ordem}` };
-        else if (nome && !ordem)
-            return { message: `Obter pelo nome ${nome}` };
-        else 
-            return { message: `Nenhum parametro encontrado` };
+    @Get("buscar/:id")
+    obterPorId(@Param("id") id: number) {
+        console.log(id);
+        return {
+        message: `Pessoa com id: ${id}`,
+        };
     }
 
-    @Get('buscar')
-    buscarPeloNome(@Query("nome") nome: string){
+    @Get("ordem/descendente")
+    obterTodasOrdenadasDescendente() {
         return {
-            message: `Obter pelo nome ${nome}`
+        message: "Pessoas ordenadas descendente",
         };
+    }
+    
+    @Get("nome")
+    buscarPeloNome(@Query('nome') nome: string) {
+        return {
+        message: `Obter pelo nome ${nome}`
+        };
+    }
+
+    @Get("nome/ordenado")
+    buscarPeloNomeOrdenado(@Query('nome') nome: string,@Query('order') order: string){
+        return{
+        message: `Obter pelo nome ${nome} e order ${order}`
+        };
+    }
+
+    @Get("/nome/:nome")
+    obterPeloNome(@Param('nome') nome: string){
+        if (nome) {
+            return this.pessoaService.search(nome);
+        }
+    }
+
+    @Post()
+    inserir(@Body() body: any){
+        console.log(body);
+        
+        const pessoa: Partial<Pessoa> = {
+            nome: body.nome,
+            email: body.email
+        }
+
+        return this.pessoaService.insert(pessoa); 
     }
 }

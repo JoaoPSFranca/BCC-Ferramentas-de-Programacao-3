@@ -16,22 +16,32 @@ export class ProdutoService {
     }
 
     public searchAll() {
-        return this.produtoRepository.find();
+        return this.produtoRepository.find({
+            relations: { categoria: true }
+        });
     }
 
     public searchByName(name: string) {
         return this.produtoRepository.find({
-            where: { 
-                nome: Like(`%${name}%`)
-            }
+            relations: { categoria: true },
+            where: { nome: Like(`%${name}%`) }
         });
     }
 
     public searchById(id: string) {
         return this.produtoRepository.findOne({
-            where: {
-                id: id
-            }
+            relations: { categoria: true },
+            where: { id }
         })
+    }
+
+    public searchByCat(cat: number) {
+        return this.produtoRepository.find({
+            select: { nome: true, categoria: { nome: true } },
+            relations: { categoria: true },
+            where: { categoria: {
+                id: cat
+            } }
+        });
     }
 }

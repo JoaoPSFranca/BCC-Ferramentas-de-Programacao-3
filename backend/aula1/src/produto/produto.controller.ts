@@ -1,8 +1,8 @@
-import { Produto } from './produto.entity';
-import { ProdutoService } from './produto.service';
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable prettier/prettier */
+import { Produto } from './produto.entity';
+import { ProdutoService } from './produto.service';
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 
 @Controller('produto')
@@ -25,13 +25,14 @@ export class ProdutoController {
             preco: body.preco,
             quantidade: body.quantidade,
             minimo: body.minimo,
-            status: body.status
+            status: body.status,
+            categoria: body.categoria
         }
 
         return this.produtoService.insert(prod);
     }
 
-    @Get("/all")
+    @Get("/search/all")
     getAll() {
         return this.produtoService.searchAll();
     }
@@ -46,5 +47,11 @@ export class ProdutoController {
     getById(@Param('id') id: string){
         if (id) 
             return this.produtoService.searchById(id);
+    }
+
+    @Get("/search/categoria/:cat")
+    getByCategoria(@Param('cat') cat: number) {
+        if (cat)
+            return this.produtoService.searchByCat(cat);
     }
 }

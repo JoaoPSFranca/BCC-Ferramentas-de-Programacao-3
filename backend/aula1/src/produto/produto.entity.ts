@@ -1,5 +1,6 @@
 /* eslint-disable prettier/prettier */
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Categoria } from "src/categoria/categoria.entity";
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Produto {
@@ -20,4 +21,8 @@ export class Produto {
 
     @Column({length: 30})
     status: string;
+
+    @ManyToOne(() => Categoria, (categoria) => categoria.produtos, {nullable: false})
+    @JoinColumn({name: "categoria_id"})
+    categoria: Categoria;
 }

@@ -14,6 +14,8 @@ Estudos relacionados ao backend no geral e como fazer as coisas.
      - 2.3.2. [Param](#232-param)
      - 2.3.3. [Query](#233-query)
 3. [Services](#3-services)
+   - 3.1. [Injeção de Dependência](#31-injeção-de-dependência)
+   - 3.2. [Funcionamento](#32-funcionamento)
 4. [TypeORM](#4-typeorm)
    - 4.1. [Instalação](#41-instalação)
    - 4.2. [Decorators](#42-decorators)
@@ -22,12 +24,20 @@ Estudos relacionados ao backend no geral e como fazer as coisas.
    - 4.5. [Relacionamentos](#45-relacionamentos)
      - 4.5.1. [ManyToOne](#451-manytoone)
      - 4.5.2. [OneToMany](#452-onetomany)
+     - 4.5.3. [OneToOne](#453-onetoone)
+     - 4.5.4. [ManyToMany](#454-manytomany)
+     - 4.5.5. [Carregamento de Relacionamentos](#455-carregamento-de-relacionamentos)
+     - 4.5.6. [Operações em Cascata](#456-operações-em-cascata)
 5. [Class Validators e Transformers](#5-class-validators-e-transformers)
    - 5.1. [Data Transfer Objects (DTOs)](#51-data-transfer-objects-dtos)
+   - 5.2. [Pipes Nativos do NestJS](#52-pipes-nativos-do-nestjs)
 6. [Autentificação JWT](#6-autentificação-jwt)
    - 6.1. [Instalação](#61-instalação)
    - 6.2. [Gerando os Tokens](#62-gerando-os-tokens)
+   - 6.3. [Guards Personalizados](#63-guards-personalizados)
 7. [Exception Filters](#7-exception-filters)
+   - 7.1. [Status HTTP Personalizados](#71-status-http-personalizados)
+8. [Middlewares](#8-middlewares)
 
 ## 1. Introdução
 
@@ -243,7 +253,25 @@ Como já vimos, o `controller` é quem gerencia as rotas e chama as devidas fun�
 
 Para começar, os `services` possuem sua própria tag de início, o `@Injectable()` (assim como o `@Controller()`), porém, não possuem parâmetro. Além disso, eles possuem também um nome prórpio `model-name.service.ts`. </br>
 
-Em seguida, para facilitar as coisas, no constructor, podemos usar o `@InjectRepository()` na definição de uma variável para utilizar o repository. Como parâmetro, você deve passar a classe para que você está criando o `service`, por exemplo, em um `service` de `categoria`, ficaria assim: 
+### 3.1. Injeção de Dependência
+
+O NestJS usa injeção de dependência para gerenciar as instâncias das classes. Isso significa que você não precisa criar objetos manualmente com `new`.
+
+**Como funciona:**
+1. Você declara o service no array `providers` do módulo
+2. O NestJS cria automaticamente a instância
+3. Você injeta no constructor onde precisar
+
+```TypeScript
+// O NestJS cuida de criar a instância de CategoriaService
+constructor(private categoriaService: CategoriaService) {}
+```
+
+**Importante:** Services marcados com `@Injectable()` podem ser injetados em outros lugares.
+
+### 3.2. Funcionamento
+
+Para facilitar as coisas, no constructor, podemos usar o `@InjectRepository()` na definição de uma variável para utilizar o repository. Como parâmetro, você deve passar a classe para que você está criando o `service`, por exemplo, em um `service` de `categoria`, ficaria assim: 
 
 ```TypeScript
 @Injectable()
@@ -353,7 +381,7 @@ import { AppService } from './app.service';
       password: 'ifsp',         // a senha do banco
       database: 'db_teste',     // o nome da database
       autoLoadEntities: true,   // faz carregar todos os modulos
-      synchronize: true,        // com o true ele apaga tudo e cria de novo
+      synchronize: true,        // sincroniza automaticamente o schema (use apenas em desenvolvimento)
     }),
   ],
   controllers: [AppController],
@@ -361,6 +389,8 @@ import { AppService } from './app.service';
 }) 
 export class AppModule {}
 ```
+
+> Observação importante: o `synchronize: true` NUNCA deve ser usado em produção, pois pode causar perda de dados.
 
 ### 4.2. Decorators
 
@@ -563,6 +593,99 @@ export class Categoria {
 
 A estrutura do `@OneToMany()` se da pelo: `@OneToMany(() => classe, (var) => var.atributoQueLigaDeVolta)`. Além disso, é importante ver que, nesse caso, há uma lista para comportar os muitos produtos em um atributo.
 
+### 4.5.3. OneToOne
+
+Quando um registro de uma tabela tem relação 1:1 com outra. Exemplo: Usuário e Perfil.
+
+```TypeScript
+// usuario.entity.ts
+@Entity()
+export class Usuario {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
+
+  @OneToOne(() => Perfil, (perfil) => perfil.usuario)
+  @JoinColumn()
+  perfil: Perfil;
+}
+
+// perfil.entity.ts
+@Entity()
+export class Perfil {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
+
+  @OneToOne(() => Usuario, (usuario) => usuario.perfil)
+  perfil: Usuario;
+}
+```
+
+### 4.5.4. ManyToMany
+
+Quando vários registros de uma tabela se relacionam com vários de outra. Exemplo: Alunos e Cursos.
+
+```TypeScript
+// aluno.entity.ts
+@Entity()
+export class Aluno {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
+
+  @ManyToMany(() => Curso, (curso) => curso.alunos)
+  @JoinTable() // Apenas um lado precisa do JoinTable
+  cursos: Curso[];
+}
+
+// curso.entity.ts
+@Entity()
+export class Curso {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
+
+  @ManyToMany(() => Aluno, (aluno) => aluno.cursos)
+  alunos: Aluno[];
+}
+```
+
+### 4.5.5. Carregamento de Relacionamentos
+
+**Eager Loading:** Carrega automaticamente os relacionamentos.
+
+```TypeScript
+@ManyToOne(() => Categoria, (categoria) => categoria.produtos, {
+  eager: true  // Sempre carrega a categoria junto com o produto
+})
+categoria: Categoria;
+```
+
+**Lazy Loading:** Carrega apenas quando solicitado.
+
+```TypeScript
+// No service
+const produto = await this.produtoRepository.findOne({
+  where: { id },
+  relations: ['categoria']  // Especifica quais relações carregar
+});
+```
+
+### 4.5.6. Operações em Cascata
+
+Permite que operações (salvar, deletar) sejam aplicadas automaticamente aos relacionamentos.
+
+```TypeScript
+@OneToMany(() => Produto, (produto) => produto.categoria, {
+  cascade: true,  // Ao salvar categoria, salva produtos também
+  onDelete: 'CASCADE'  // Ao deletar categoria, deleta produtos
+})
+produtos: Produto[];
+```
+
+**Opções de cascade:**
+- `true`: Todas as operações
+- `['insert']`: Apenas ao inserir
+- `['update']`: Apenas ao atualizar
+- `['remove']`: Apenas ao deletar
+
 ## 5. Class Validators e Transformers
 
 Este recurso servirá como um guia para saberem o que é necessário ser enviado na requisição e validar os dados recebidos, antes de chegar ao `service`. </br>
@@ -663,6 +786,26 @@ create(@Body() createProdutoDto: CreateProdutoDto) {
 }
 ```
 
+### 5.2. Pipes Nativos do NestJS
+
+Pipes são usados para transformar e validar dados antes de chegarem ao controller.
+
+| Pipe | Função |
+| ---- | ------ |
+| `ParseIntPipe` | Converte string para inteiro |
+| `ParseBoolPipe` | Converte string para boolean |
+| `ParseArrayPipe` | Converte para array |
+| `ParseUUIDPipe` | Valida se é UUID válido |
+| `ValidationPipe` | Valida usando class-validator |
+
+Exemplo:
+```TypeScript
+@Get(':id')
+findOne(@Param('id', ParseUUIDPipe) id: string) {
+  return this.categoriaService.buscarPeloId(id);
+}
+```
+
 ## 6. Autentificação JWT
 
 O JWT ser trata de um serviço de autentificação, normalmente utilizado para gerenciamento de logins e sessões.
@@ -675,7 +818,14 @@ sudo npm install @nestjs/passport passport @nestjs/jwt passport-jwt
 sudo npm install -D @types/passport-jwt
 ```
 
-Em seguida, geramos o módulo de autentificação, o `auth.module.ts` que ficará assim: 
+Em seguida, devemos gerar o módulo e service de autentificação
+
+```bash
+nest g module auth
+nest g service auth
+```
+
+Assim, o `auth.module.ts` ficará assim: 
 
 ```TypeScript
 import { Module } from '@nestjs/common';
@@ -715,7 +865,7 @@ export class AuthService {
     const payload = { username: user.username, sub: user.id };
     
     return {
-      retorna o access token criptografado
+      // retorna o access token criptografado
       access_token: this.jwtService.sign(payload), 
     };
   }
@@ -758,7 +908,36 @@ getProfile(@Request() req) {
 }
 ```
 
-## 7. Exception FIlters
+### 6.3. Guards Personalizados
+
+Guards controlam se uma requisição pode ou não prosseguir.
+
+```TypeScript
+// roles.guard.ts
+import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
+
+@Injectable()
+export class RolesGuard implements CanActivate {
+  canActivate(context: ExecutionContext): boolean {
+    const request = context.switchToHttp().getRequest();
+    const user = request.user;
+    
+    // Verifica se o usuário tem permissão
+    return user && user.role === 'admin';
+  }
+}
+```
+
+**Usando:**
+```TypeScript
+@UseGuards(AuthGuard('jwt'), RolesGuard)
+@Delete(':id')
+delete(@Param('id') id: string) {
+  return this.service.delete(id);
+}
+```
+
+## 7. Exception Filters
 Basicamente, cria a possibilidade de enviarmos exceções personalizadas para quando algo da erro. </br>
 
 Para isso, podemos criar uma classe de filtros, por exemplo, uma `http-exception.filter.ts` que terá o seguinte formato: 
@@ -832,5 +1011,56 @@ export class HttpExceptionFilter<T> implements ExceptionFilter {
 ```
 
 Para que o filter funcione, temos 3 opções, adicionar `@UseFilters(HttpExceptionFilter)` nas funções (para proteger uma rota) ou antes do `@Controller()` para proteger o controller todo, ou então adicionamos `app.useGlobalFilters(new HttpExceptionFilter());` no `main.ts` para ele funcionar em todas as rotas. 
+
+### 7.1. Status HTTP Personalizados
+
+```TypeScript
+import { HttpStatus } from '@nestjs/common';
+
+@Post()
+@HttpCode(HttpStatus.CREATED) // Retorna 201 ao invés de 200
+create(@Body() dados: any) {
+  return this.service.create(dados);
+}
+```
+
+**Principais Status:**
+- 200: OK
+- 201: Created
+- 204: No Content
+- 400: Bad Request
+- 401: Unauthorized
+- 403: Forbidden
+- 404: Not Found
+- 500: Internal Server Error
+
+## 8. Middlewares
+
+Middlewares são funções executadas **antes** de chegar ao controller.
+
+```TypeScript
+// logger.middleware.ts
+import { Injectable, NestMiddleware } from '@nestjs/common';
+import { Request, Response, NextFunction } from 'express';
+
+@Injectable()
+export class LoggerMiddleware implements NestMiddleware {
+  use(req: Request, res: Response, next: NextFunction) {
+    console.log(\`[\${req.method}] \${req.url}\`);
+    next(); // Passa para o próximo middleware ou rota
+  }
+}
+```
+
+**Aplicando no módulo:**
+```TypeScript
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(LoggerMiddleware)
+      .forRoutes('*'); // Aplica em todas as rotas
+  }
+}
+```
 
 > É válido ressaltar que este .md serviu apenas como base de estudos e retrata apenas o meu conhecimento da época (30/11/2025). Não deve ser usado como regra ou vias de certeza. Sujeito a alterações e correções.

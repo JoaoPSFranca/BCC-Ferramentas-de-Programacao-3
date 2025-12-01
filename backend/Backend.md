@@ -50,6 +50,57 @@ nest g s model-name
 nest g gu auth
 ```
 
+### 1.2. Configuração de Ambiente (.env)
+
+Para modularizar melhor o projeto, podemos criar um arquivo para armazenar as informações do banco e evitar de ter elas expostas. Para isso, podemos começar instalando os pacotes que faram isso.
+
+```bash
+npm install @nestjs/config
+```
+
+Após isso, podemos criar um arquivo `.env` na raiz do projeto com a estrutura:
+
+```
+DB_HOST=localhost
+DB_PORT=3306
+DB_USERNAME=root
+DB_PASSWORD=ifsp
+DB_DATABASE=db_teste
+```
+
+Agora, podemos ir ao `app.module.ts` e alterar:
+
+```TypeScript
+import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { ConfigModule, ConfigService } from '@nestjs/config'; // adiciona os imports
+
+@Module({
+  imports: [
+    ConfigModule.forRoot({ // Adiciona o modulo das configuracoes
+      isGlobal: true,
+    }),
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule], // altera as infos para o configModule
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => ({
+        type: 'mysql',
+        host: configService.get<string>('DB_HOST'), // faz as mesmas coisas aqui e nos outros
+        port: configService.get<number>('DB_PORT'),
+        username: configService.get<string>('DB_USERNAME'),
+        password: configService.get<string>('DB_PASSWORD'),
+        database: configService.get<string>('DB_DATABASE'),
+        autoLoadEntities: true,
+        synchronize: true,
+      }),
+    }),
+  ],
+  controllers: [],
+  providers: [],
+})
+export class AppModule {}
+```
+
 ## 2. Controller
 
 O controller possui uma estrutura parecida com isso:
@@ -158,11 +209,97 @@ findAll(@Query('nome') nome: string) {
 }
 ```
 
-## 3. TypeORM
+## 3. Services
+
+Como já vimos, o `controller` é quem gerencia as rotas e chama as devidas funções. Para isso funcionar, temos o `service` que vai definir essas funçõs que serão utilizadas pelo controller. </br>
+
+Para começar, os `services` possuem sua própria tag de início, o `@Injectable()` (assim como o `@Controller()`), porém, não possuem parâmetro. Além disso, eles possuem também um nome prórpio `model-name.service.ts`. </br>
+
+Em seguida, para facilitar as coisas, no constructor, podemos usar o `@InjectRepository()` na definição de uma variável para utilizar o repository. Como parâmetro, você deve passar a classe para que você está criando o `service`, por exemplo, em um `service` de `categoria`, ficaria assim: 
+
+```TypeScript
+@Injectable()
+export class CategoriaService {
+    constructor(
+        @InjectRepository(Categoria)
+        private categoriaRepository: Repository<Categoria>,
+    ) {}
+}
+```
+
+Para realizar funções de escrita (salvar/cadastrar dados), podemos adicionar um método para isso usando o `repository.save(objeto)`.
+
+```TypeScript
+public inserir(categoria: Partial<Categoria>) {
+    return this.categoriaRepository.save(categoria);
+}
+```
+
+> É importante sempre colocar um `Partial<objeto>`, pois em vários casos vamosa salvar objetos incompletos, por exemplo sem id (que será gerado), sem data de exclusão, etc. O banco validará depois se podem ou não ser `NULL` os valores não passados.
+
+Podemos utilizar funções para pegar as categorias salvas com o `repository.find()`. E podemos ainda selecionar quais dados serão retornados e quais não serão utilizando o `select: {}` e outras opções do `mysql` como o `order` (para ordenar), o `where` (para filtrar) e assim por diante.
+
+```TypeScript
+public buscarPeloId(id: string) {
+    return this.categoriaRepository.find({ 
+        select: { // faz retornar apenas o id e o nome da categoria
+          id: true,
+          nome: true,
+          produtos: {
+            nome: true
+          }
+        },
+        relations: {
+          produtos: true
+        },
+        where: {
+          id
+        }
+    });
+}
+```
+
+Neste trecho, encontramos outra coisa interessante, o uso do `relations`. Ele garante que o produto (que está incluso na tabela de categoria) terá seus atributos retornados e então no `select` abrimos outras chaves para definir que apenas os nomes dos produtos serão retornados. </br>
+
+Existem outras alternativas, como o `repository.findOne()` que retorna apenas o primeiro registro da busca, o `repository.findBy()` que você pode passar um parâmetro para ele filtrar e o `repository.findOneBy()` que filtra a pesquisa e retorna apenas o primeiro. Ao utilizar o `findBy` ou o `findOneBy`, não há necessidade do `where`. 
+
+```TypeScript
+import { Repository, Like } from 'typeorm';
+
+public buscarPeloNome(nome: string) {
+  return this.categoriaRepository.find({
+    where: {
+      nome: Like(`%${nome}%`),
+    },
+  });
+}
+```
+
+Além disso, é possível utilizar algumas outras funções, como o `Like` para filtrar, porém em casos assim, é importante lembrar de importar a função. 
+
+```TypeScript
+constructor(private categoriaService: CategoriaService) {}
+
+@Post()
+create(@Body() categoria: Categoria) {
+  console.log(categoria);
+
+  return this.categoriaService.inserir(categoria);
+}
+
+@Get(':id')
+findOne(@Param('id') id: string) {
+  return this.categoriaService.buscarPeloId(id);
+}
+```
+
+Assim, para utilizar o `service` no `controller`, devemos primeiro inicializar ele no `constructor`, em seguida, basta utilizar normalmente dentro das funções.
+
+## 4. TypeORM
 
 O TypeORM funciona basicamente como um recurso para facilitação no gerenciamento de banco de dados pelo próprio Nest. Ele funciona como um JPA, transforma o seu código em tabelas relacionadas e traz algumas funções para facilitar tarefas de `select`, `insert`, etc.
 
-### 3.1. Instalação:
+### 4.1. Instalação:
 
 Antes de iniciar, é necessário entrar na pasta do projeto e rodar o comando abaixo:
 
@@ -197,7 +334,7 @@ import { AppService } from './app.service';
 export class AppModule {}
 ```
 
-### 3.2. Decorators
+### 4.2. Decorators
 
 Ao criar uma classe, geralmente na pasta do `model/entities` com o nome `model-name.entity.ts`, deve-se adicionar o `@Entity()` e os Decorators a cada variável.
 
@@ -284,7 +421,7 @@ export class UsuarioController {
 }
 ```
 
-### 3.3. Aplicação
+### 4.3. Aplicação
 Para funcionar é necessário adicionar o import no módulo da classe que foi criada, no caso do exemplo passado, a de produtos, então no `produto.module.ts`:
 
 ```TypeScript
@@ -296,7 +433,7 @@ Para funcionar é necessário adicionar o import no módulo da classe que foi cr
 export class ProdutoModule {}
 ```
 
-### 3.4. Enum
+### 4.4. Enum
 Para adicionar um Enum, é necessário criar um enum dentro da própria classe. Por exemplo:
 
 ```TypeScript
@@ -342,10 +479,10 @@ Agora para adicionarmos um enum, precisamos definir alguns parâmetros, para iss
 nivel: NivelAcesso;
 ```
 
-### 3.5. Relacionamentos
+### 4.5. Relacionamentos
 No contexto de construção de tabelas, podemos adicionar os relacionamentos também através dos Decorators. 
 
-### 3.5.1. ManyToOne
+### 4.5.1. ManyToOne
 Nesse contexto, muitos de uma tabela, possuem o atributo de outra. Por exemplo:
 
 ```TypeScript
@@ -378,7 +515,7 @@ export class Produto {
 
 Nesse caso, muitos produtos possuem uma categoria em comum, por conta disso, o `Many` (muitos produtos) `toOne` (para uma categoria). Assim, temos a estrutura `@ManyToOne(() => classe, (var) => var.atributoQueLigaDeVolta, { nullable: flase })`. Além do `@JoinColumn({ name: "categoria_id" })` que diz qual vai ser o nome da coluna na tabela Produto. </br>
 
-### 3.5.2. OneToMany
+### 4.5.2. OneToMany
 
 Do outro lado, temos a parte da Categoria com o `@OneToMany()`. Sendo assim: 
 
@@ -398,142 +535,8 @@ export class Categoria {
 
 A estrutura do `@OneToMany()` se da pelo: `@OneToMany(() => classe, (var) => var.atributoQueLigaDeVolta)`. Além disso, é importante ver que, nesse caso, há uma lista para comportar os muitos produtos em um atributo.
 
-## 4. Progressão 
-Para modularizar melhor o projeto, podemos criar um arquivo para armazenar as informações do banco e evitar de ter elas expostas. Para isso, podemos começar instalando os pacotes que faram isso.
+## 5. Class Validators e Transformers
 
-```bash
-npm install @nestjs/config
-```
-
-Após isso, podemos criar um arquivo `.env` na raiz do projeto com a estrutura:
-
-```
-DB_HOST=localhost
-DB_PORT=3306
-DB_USERNAME=root
-DB_PASSWORD=ifsp
-DB_DATABASE=db_teste
-```
-
-Agora, podemos ir ao `app.module.ts` e alterar:
-
-```TypeScript
-import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { ConfigModule, ConfigService } from '@nestjs/config'; // adiciona os imports
-
-@Module({
-  imports: [
-    ConfigModule.forRoot({ // Adiciona o modulo das configuracoes
-      isGlobal: true,
-    }),
-    TypeOrmModule.forRootAsync({
-      imports: [ConfigModule], // altera as infos para o configModule
-      inject: [ConfigService],
-      useFactory: (configService: ConfigService) => ({
-        type: 'mysql',
-        host: configService.get<string>('DB_HOST'), // faz as mesmas coisas aqui e nos outros
-        port: configService.get<number>('DB_PORT'),
-        username: configService.get<string>('DB_USERNAME'),
-        password: configService.get<string>('DB_PASSWORD'),
-        database: configService.get<string>('DB_DATABASE'),
-        autoLoadEntities: true,
-        synchronize: true,
-      }),
-    }),
-  ],
-  controllers: [],
-  providers: [],
-})
-export class AppModule {}
-```
-
-## 5. Services
-Como já vimos, o `controller` é quem gerencia as rotas e chama as devidas funções. Para isso funcionar, temos o `service` que vai definir essas funçõs que serão utilizadas pelo controller. </br>
-
-Para começar, os `services` possuem sua própria tag de início, o `@Injectable()` (assim como o `@Controller()`), porém, não possuem parâmetro. Além disso, eles possuem também um nome prórpio `model-name.service.ts`. </br>
-
-Em seguida, para facilitar as coisas, no constructor, podemos usar o `@InjectRepository()` na definição de uma variável para utilizar o repository. Como parâmetro, você deve passar a classe para que você está criando o `service`, por exemplo, em um `service` de `categoria`, ficaria assim: 
-
-```TypeScript
-@Injectable()
-export class CategoriaService {
-    constructor(
-        @InjectRepository(Categoria)
-        private categoriaRepository: Repository<Categoria>,
-    ) {}
-}
-```
-
-Para realizar funções de escrita (salvar/cadastrar dados), podemos adicionar um método para isso usando o `repository.save(objeto)`.
-
-```TypeScript
-public inserir(categoria: Partial<Categoria>) {
-    return this.categoriaRepository.save(categoria);
-}
-```
-
-> É importante sempre colocar um `Partial<objeto>`, pois em vários casos vamosa salvar objetos incompletos, por exemplo sem id (que será gerado), sem data de exclusão, etc. O banco validará depois se podem ou não ser `NULL` os valores não passados.
-
-Podemos utilizar funções para pegar as categorias salvas com o `repository.find()`. E podemos ainda selecionar quais dados serão retornados e quais não serão utilizando o `select: {}` e outras opções do `mysql` como o `order` (para ordenar), o `where` (para filtrar) e assim por diante.
-
-```TypeScript
-public buscarPeloId(id: string) {
-    return this.categoriaRepository.find({ 
-        select: { // faz retornar apenas o id e o nome da categoria
-          id: true,
-          nome: true,
-          produtos: {
-            nome: true
-          }
-        },
-        relations: {
-          produtos: true
-        },
-        where: {
-          id
-        }
-    });
-}
-```
-
-Neste trecho, encontramos outra coisa interessante, o uso do `relations`. Ele garante que o produto (que está incluso na tabela de categoria) terá seus atributos retornados e então no `select` abrimos outras chaves para definir que apenas os nomes dos produtos serão retornados. </br>
-
-Existem outras alternativas, como o `repository.findOne()` que retorna apenas o primeiro registro da busca, o `repository.findBy()` que você pode passar um parâmetro para ele filtrar e o `repository.findOneBy()` que filtra a pesquisa e retorna apenas o primeiro. Ao utilizar o `findBy` ou o `findOneBy`, não há necessidade do `where`. 
-
-```TypeScript
-import { Repository, Like } from 'typeorm';
-
-public buscarPeloNome(nome: string) {
-  return this.categoriaRepository.find({
-    where: {
-      nome: Like(`%${nome}%`),
-    },
-  });
-}
-```
-
-Além disso, é possível utilizar algumas outras funções, como o `Like` para filtrar, porém em casos assim, é importante lembrar de importar a função. 
-
-```TypeScript
-constructor(private categoriaService: CategoriaService) {}
-
-@Post()
-create(@Body() categoria: Categoria) {
-  console.log(categoria);
-
-  return this.categoriaService.inserir(categoria);
-}
-
-@Get(':id')
-findOne(@Param('id') id: string) {
-  return this.categoriaService.buscarPeloId(id);
-}
-```
-
-Assim, para utilizar o `service` no `controller`, devemos primeiro inicializar ele no `constructor`, em seguida, basta utilizar normalmente dentro das funções.  
-
-## 6. Class Validators e Transformers
 Este recurso servirá como um guia para saberem o que é necessário ser enviado na requisição e validar os dados recebidos, antes de chegar ao `service`. </br>
 
 Para iniciar, devemos primeiro instalar os recursos:
@@ -566,7 +569,7 @@ async function bootstrap() {
 
 Tendo isso configurado, podemos começar a trabalhar na próxima etapa, os DTOs. 
 
-### 6.1. Data Transfer Objects (DTOs)
+### 5.1. Data Transfer Objects (DTOs)
 O DTO se trata de uma classe simples para definir o formato dos dados que serão recebidos e enviados em uma requisição. Aqui, utilizaremos diversos Decorators (validadores de dados) para que os dados cheguem no formato correto. </br>
 
 Então para a classe produto, podemos ter um `create-produto.dto.ts` dessa forma:
@@ -632,10 +635,11 @@ create(@Body() createProdutoDto: CreateProdutoDto) {
 }
 ```
 
-## 7. Autentificação JWT
+## 6. Autentificação JWT
+
 O JWT ser trata de um serviço de autentificação, normalmente utilizado para gerenciamento de logins e sessões.
 
-### 7.1. Instalação
+### 6.1. Instalação
 Para utilizar este recurso, é necessário instalar seus pacotes primeiro: 
 
 ```TypeScript
@@ -666,7 +670,7 @@ import { JwtStrategy } from './jwt.strategy';
 export class AuthModule {}
 ```
 
-### 7.2. Gerando os Tokens 
+### 6.2. Gerando os Tokens 
 Com o ambiente configurado, podemos gerar os tokens em um `auth.service.ts`.
 
 ```TypeScript
@@ -726,7 +730,7 @@ getProfile(@Request() req) {
 }
 ```
 
-## 8. Exception FIlters
+## 7. Exception FIlters
 Basicamente, cria a possibilidade de enviarmos exceções personalizadas para quando algo da erro. </br>
 
 Para isso, podemos criar uma classe de filtros, por exemplo, uma `http-exception.filter.ts` que terá o seguinte formato: 

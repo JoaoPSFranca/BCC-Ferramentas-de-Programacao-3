@@ -1,6 +1,34 @@
 # Backend
 Estudos relacionados ao backend no geral e como fazer as coisas.
 
+## Sumário
+
+1. [Introdução](#1-introdução)
+   - 1.1. [Comandos básicos](#11-comandos-básicos)
+   - 1.2. [Configuração de Ambiente (.env)](#12-configuração-de-ambiente-env)
+2. [Controller](#2-controller)
+   - 2.1. [GET](#21-get)
+   - 2.2. [POST](#22-post)
+   - 2.3. [Parâmetros da Requisição](#23-parâmetros-da-requisição)
+     - 2.3.1. [Body](#231-body)
+     - 2.3.2. [Param](#232-param)
+     - 2.3.3. [Query](#233-query)
+3. [Services](#3-services)
+4. [TypeORM](#4-typeorm)
+   - 4.1. [Instalação](#41-instalação)
+   - 4.2. [Decorators](#42-decorators)
+   - 4.3. [Aplicação](#43-aplicação)
+   - 4.4. [Enum](#44-enum)
+   - 4.5. [Relacionamentos](#45-relacionamentos)
+     - 4.5.1. [ManyToOne](#451-manytoone)
+     - 4.5.2. [OneToMany](#452-onetomany)
+5. [Class Validators e Transformers](#5-class-validators-e-transformers)
+   - 5.1. [Data Transfer Objects (DTOs)](#51-data-transfer-objects-dtos)
+6. [Autentificação JWT](#6-autentificação-jwt)
+   - 6.1. [Instalação](#61-instalação)
+   - 6.2. [Gerando os Tokens](#62-gerando-os-tokens)
+7. [Exception Filters](#7-exception-filters)
+
 ## 1. Introdução
 
 Para começar, precisa instalar o nest: 
